@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Column, String, DateTime, Index
+from sqlalchemy import Column, String, DateTime, Index, func
 from sqlalchemy.orm import validates
 
 from app.database import Base
@@ -15,7 +15,7 @@ class Booking(Base):
     start_time = Column(DateTime, nullable=False)
     end_time = Column(DateTime, nullable=False)
     user_name = Column(String, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=func.now())
 
     __table_args__ = (
         Index("ix_bookings_room_time", "room_id", "start_time", "end_time"),
